@@ -1,0 +1,44 @@
+{% extends "bootstrap/base.html" %}
+{% load static %}
+{% block title %}{{ title }} :: {{ block.super }}{% endblock %}
+
+
+{% block content %}
+
+
+<p>Navn : {{prompt.navn}}</p>
+<p>Tittel: {{prompt.tittel}}</p>
+<p>Tekst: {{prompt.tekst}}</p>
+<a href = '/promptdelete/{{prompt.id}}' > DELETE</a>
+<br>
+<a href = '/promptform' > Hjem</a>
+<br>
+<a href = '/prompt' > Tilbake</a>
+
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<p id="demo"></p>
+
+<script>
+var i = 0;
+var txt = "{{prompt.tekst}}";
+var speed = 50;
+
+function typeWriter() {
+  if (i < txt.length) {
+    document.getElementById("demo").innerHTML += txt.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+  }
+}
+typeWriter()
+</script>
+
+</body>
+</html>
+
+
+{% endblock %}

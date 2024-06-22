@@ -1,0 +1,21 @@
+<!-- fileuploads/templates/upload_file.html -->
+{% extends "bootstrap/base.html" %}
+{% load static %}
+{% block title %}{{ title }} :: {{ block.super }}{% endblock %}
+
+{% block content %}
+    <form class="form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Generate SUBS and VERBS</button>
+    </form>
+
+    <h3>Choose file:</h3>
+    <select name="filenames" id="filenames-id">
+        <option value="default">--Please choose an option--</option>
+        {% for file in files %}
+            <option value="">{{ file.file.name }}</option>
+        {% endfor %}
+    </select>
+
+{% endblock %}

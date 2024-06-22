@@ -1,0 +1,27 @@
+{% extends "bootstrap/base.html" %}
+{% load static %}
+{% block title %}{{ title }} :: {{ block.super }}{% endblock %}
+
+
+{% block content %}
+
+<h1>Registrer Prompt</h1>
+
+ 
+
+</form>
+</pre>
+
+<form action='/promptform/' method="POST">{% csrf_token %}
+      <br>Username</br>
+      <input type="text" name="navn" id="navn" placeholder="navn">
+      <br>Tittel<br>
+      <input type="text" name="tittel" id="tittel" placeholder="tittel">
+      <br>Melding<br>
+      <textarea id="text" name="tekst" rows="4" cols="25" placeholder="tekst"> </textarea>
+      <br>
+      <input type="submit" value="Add">
+  </form>
+
+{% endblock %}
+

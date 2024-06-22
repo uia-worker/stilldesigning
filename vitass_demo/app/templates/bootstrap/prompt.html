@@ -1,0 +1,23 @@
+{% extends "bootstrap/base.html" %}
+{% load static %}
+{% block title %}{{ title }} :: {{ block.super }}{% endblock %}
+
+
+{% block content %}
+
+
+
+
+
+<h1>Prompts</h1>
+<ul>
+{% for prompt in prompts %}
+    <li><a href="/prompts/{{prompt.id}}">{{prompt.tittel}}</li>
+{% endfor %}
+</ul>
+
+<a href="/promptform">add a prompt</a>
+
+
+
+{% endblock %}

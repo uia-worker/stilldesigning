@@ -1,0 +1,20 @@
+{% extends "bootstrap/base.html" %}
+{% load static %}
+{% block title %}{{ title }} :: {{ block.super }}{% endblock %}
+
+
+{% block content %}
+
+
+<p>Username : {{user.username}}</p>
+<p>name: {{user.name}}</p>
+<p>user.: {{user.email}}</p>
+<a href = '/userdelete/{{user.id}}' > DELETE</a>
+<br>
+<a href = '/promptform' > Hjem</a>
+<br>
+<a href = '/user' > Tilbake</a>
+
+
+
+{% endblock %}

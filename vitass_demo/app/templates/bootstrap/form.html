@@ -1,0 +1,23 @@
+{% extends "bootstrap/base.html" %}
+{% load static %}
+{% block title %}{{ title }} :: {{ block.super }}{% endblock %}
+
+
+{% block content %}
+
+
+<h1>Registrer ny bruker</h1>
+<pre>
+  <form action='' method="POST">
+    {% csrf_token %}
+  Username: <input type="text" name="username" placeholder="Username" required> <br>
+  Name: <input type="text" name="name" placeholder="Name" ><br>
+  Email: <input type="text" name="email" placeholder="Email"><br>
+  Telephone: <input type="text" name="telephone" placeholder="Telephone"> <br>
+  Password: <input type="text" name="password" placeholder="Password" required><br>
+  <input type="submit" name="register" value="Register">
+</form>
+</pre>
+
+
+{% endblock %}
