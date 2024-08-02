@@ -19,6 +19,12 @@ from .models import User
 from .models import Prompt
 from .forms import CreateUserFrom
 
+import os
+import spacy
+from django.shortcuts import render, get_object_or_404
+from .models import UploadedFile
+from .models import Text
+
 
 def registerPage(request):
     form = CreateUserFrom()
@@ -116,8 +122,8 @@ def download_file(request, file_id):
 
 
 def read_file(request):
-    file_path = settings.BASE_DIR / "media/uploads/uml-2.5.1-formal-17-12-05.pdf"
-    #file_path = settings.BASE_DIR / "media/uploads/simple.pdf"
+    #file_path = settings.BASE_DIR / "media/uploads/uml-2.5.1-formal-17-12-05.pdf"
+    file_path = settings.BASE_DIR / "media/uploads/detteerentest.pdf"
 
     with pdfplumber.open(file_path) as pdf:
         first_page = pdf.pages[0]
@@ -132,3 +138,80 @@ def filelist(request):
     files = UploadedFile.objects.all()
     return render(request, "%s/filelist.html" % theme, {'files': files})
 
+def textFindNounsAndVerbs(request, id):
+    nlp = spacy.load("en_core_web_sm")
+    theme = getattr(settings, "VITASS_THEME", "bootstrap")
+    data2 = UploadedFile.objects.get(pk=id)
+    file = UploadedFile.objects.get(pk=id)
+
+    def get_nouns_and_verbs(text):
+        doc = nlp(text)
+        nouns = {token.text.lower() for token in doc if token.pos_ == "NOUN"}
+        verbs = {token.text.lower() for token in doc if token.pos_ == "VERB"}
+        verbsAndNouns = []
+        verbsAndNouns.extend(verbs)
+        verbsAndNouns.extend(nouns)
+        return verbsAndNouns
+    
+    return render(request, "%s/textfindnounsandverbs.html" % theme, {'pdftext' : openPdfById(id), 'ai' : get_nouns_and_verbs(str(openPdfById(id))),'file' : file, 'text2':data2,})
+
+def openPdfById(id):
+    uploaded_file = get_object_or_404(UploadedFile, pk=id)
+
+    file_path = uploaded_file.file.path
+    
+    with pdfplumber.open(file_path) as pdf:
+        first_page = pdf.pages[0]
+        context = first_page.extract_text_simple()
+        return context
+
+
+#        context = {'first_page': first_page.extract_words()}
+#        context = first_page.extract_words()
+#        context = first_page.extract_text()
+#        context = first_page.extract_text_simple()
+#____________________________________________________________________
+
+def text(request):
+    theme = getattr(settings, "VITASS_THEME", "bootstrap")
+    data4 = Text.objects.all()
+    
+    return render(request, "%s/text.html" % theme, {'texts':data4})
+
+
+def textdetail(request, id):
+    nlp = spacy.load("en_core_web_sm")
+    theme = getattr(settings, "VITASS_THEME", "bootstrap")
+    data = Text.objects.get(pk=id)
+
+    def get_nouns(text):
+        doc = nlp(text)
+        nouns = {token.text.lower() for token in doc if token.pos_ == "NOUN"}
+        verbs = {token.text.lower() for token in doc if token.pos_ == "VERB"}
+
+        return nouns, verbs
+    
+    return render(request, "%s/textdetail.html" % theme, {'output':get_nouns(str(data)), 'text':(data)})
+
+def addtext(request):
+    text = request.POST.get('text')
+
+    if text:
+        text = Text(text=text)
+        text.save()
+        return HttpResponseRedirect('/text')
+    return render(request, 'bootstrap/textform.html')
+
+def textdelete(request, id):
+    Text.objects.get(pk=id).delete()
+    return HttpResponseRedirect('/text')
+
+def pdf(request):
+    theme = getattr(settings, "VITASS_THEME", "bootstrap")
+    files = UploadedFile.objects.all()
+    
+    return render(request, "%s/pdf.html" % theme, {'files':files})
+
+def pdfdelete(request, id):
+    UploadedFile.objects.get(pk=id).delete()
+    return HttpResponseRedirect('/pdf')

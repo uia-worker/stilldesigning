@@ -1,0 +1,20 @@
+{% extends "bootstrap/base.html" %}
+{% load static %}
+{% block title %}{{ title }} :: {{ block.super }}{% endblock %}
+
+
+{% block content %}
+
+
+
+<p><b>inputtext : </b> {{text}}</p>
+<p><b>nouns, verbs : </b> {{output}}</p>
+
+<a href = '/textdelete/{{text.id}}' > Delete</a>
+<br>
+<a href = '/textform' > Add Text</a>
+<br>
+<a href = '/text' > Back</a>
+
+
+{% endblock %}

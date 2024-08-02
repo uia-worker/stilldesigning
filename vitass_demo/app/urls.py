@@ -40,4 +40,14 @@ urlpatterns = [
     path("write/<int:id>", views.write, name="write"),
     path("register/", views.registerPage, name="registerPage"),
     path("filelist/", views.filelist, name="filelist"),
+    path("pdf/<int:id>/", views.textFindNounsAndVerbs, name="textfindnouns"),
+
+    path("text/", views.text, name="text"),
+    path("text/<int:id>/", views.textdetail, name="textdetail"),
+    path("textform/", views.addtext, name="addtext"),
+    path("textdelete/<int:id>/", views.textdelete, name="textdelete"),
+
+    path("pdf/", views.pdf, name="pdf"),
+    path("pdfdelete/<int:id>/", views.pdfdelete, name="pdfdelete"),
+
 ]

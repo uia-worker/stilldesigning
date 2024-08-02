@@ -1,0 +1,24 @@
+{% extends "bootstrap/base.html" %}
+{% load static %}
+{% block title %}{{ title }} :: {{ block.super }}{% endblock %}
+
+
+{% block content %}
+
+
+
+<p><b>Name of file in array :</b> {{text2}}</p>
+
+<p><b>Name of file : </b> {{file.file}}</p>
+
+<p><b>verbs&nouns :</b> {{ai}}</p>
+
+<p><b>pdf text :</b> {{pdftext}}</p>
+
+<a href = '/pdfdelete/{{file.id}}' > Delete</a>
+<br>
+<a href = '/upload' > Add pdf</a>
+<br>
+<a href = '/pdf' > Back</a>
+
+{% endblock %}

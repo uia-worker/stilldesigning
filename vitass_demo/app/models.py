@@ -38,3 +38,11 @@ class FileList(models.Model):
 
 	def __str__(self):
 		return f'{self.fileslistbox}'
+
+class Text(models.Model):
+	text = models.CharField(max_length=2000)
+	#text.add("hei hvordan går det med deg")
+
+	def __str__(self):
+		return f'{self.text}'
+

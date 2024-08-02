@@ -1,0 +1,22 @@
+<!-- fileuploads/templates/upload_file.html -->
+{% extends "bootstrap/base.html" %}
+{% load static %}
+{% block title %}{{ title }} :: {{ block.super }}{% endblock %}
+
+{% block content %}
+    <form class="form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+    </form>
+
+    <h3>PDF files uploaded:</h3>
+    <p><b>Click your file to get nouns and verbs</b></p>
+
+    <ul>
+        {% for file in files %}
+        <li><a href="/pdf/{{file.id}}">{{file.file}}</li>
+        {% empty %}
+            <li>No files uploaded yet.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
