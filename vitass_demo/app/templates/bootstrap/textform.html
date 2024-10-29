@@ -1,0 +1,23 @@
+{% extends "bootstrap/base.html" %}
+{% load static %}
+{% block title %}{{ title }} :: {{ block.super }}{% endblock %}
+
+
+{% block content %}
+
+<h1>Registrer text</h1>
+
+ 
+
+</form>
+</pre>
+
+<form action='/textform/' method="POST">{% csrf_token %}
+      <br>inputtext</br>
+      <input type="text" name="text" id="text" placeholder="text">
+      <br>
+      <input type="submit" value="Add">
+  </form>
+
+{% endblock %}
+

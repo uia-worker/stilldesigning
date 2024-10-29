@@ -1,0 +1,30 @@
+{% extends "bootstrap/base.html" %}
+{% load static %}
+{% block title %}{{ title }} :: {{ block.super }}{% endblock %}
+
+
+{% block content %}
+
+
+<p> {{text}}</p>
+
+
+
+<h1>Text inputted without pdf</h1>
+<p><b>press your text to get nouns and verbs</b></p>
+
+
+<ul>
+{% for text in texts %}
+
+    <li><a href="/text/{{text.id}}">{{text}}</li>
+{% endfor %}
+</ul>
+
+<br>
+<a href = '/textform' > Add Text</a>
+<br>
+
+
+
+{% endblock %}
